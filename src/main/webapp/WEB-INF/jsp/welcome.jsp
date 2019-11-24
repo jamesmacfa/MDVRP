@@ -16,6 +16,7 @@ $(function () {
         dataType: 'json',
         limitMultiFileUploadSize: 10000000,
         done: function (e, data) {
+            window.location.href = "/csvdemo"
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo(document.body);
             });
