@@ -14,7 +14,7 @@
 $(function () {
     $('#fileupload').fileupload({
         dataType: 'json',
-        limitMultiFileUploadSize: 10000000,
+        limitMultiFileUploadSize: 1000000,
         done: function (e, data) {
             window.location.href = "/csvdemo"
             $.each(data.result.files, function (index, file) {
