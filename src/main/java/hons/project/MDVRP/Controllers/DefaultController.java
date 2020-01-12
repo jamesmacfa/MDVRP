@@ -33,12 +33,14 @@ public class DefaultController {
         return "welcome";
     }
 
-    @RequestMapping("/csvdemo")
+    @RequestMapping("/csvraw")
     @ResponseBody()
     public List<List<String>> getCsv(Model model){
 
         return parserService.records;
     }
+    @GetMapping("/csvdemo")
+    public String csvdemo(Model model) {return "csvdemo"; }
 
     @PostMapping("/upload")
     public String handleFileUpload(@RequestParam("files[]") MultipartFile file) {

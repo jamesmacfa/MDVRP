@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>jQuery File Upload Example</title>
+<title>Upload a solution file</title>
 </head>
 <body>
 <input id="fileupload" type="file" name="files[]" data-url="upload" multiple>
