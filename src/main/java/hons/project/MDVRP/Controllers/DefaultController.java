@@ -32,18 +32,19 @@ public class DefaultController {
     @Autowired
     ParserService parserService;
 
+    //Default homepage
     @GetMapping({"/", "/welcome"})
-    public String welcome(Model model) {
+    public String welcome(Model model) throws IOException {
+        String rootPath = System.getProperty("user.dir");
+        rootPath += "/src/main/upload/";
+
+        File file = new File(rootPath+"upload.csv");
+        file.delete();
+
         return "welcome";
     }
 
-//    @RequestMapping("/csvraw")
-//    @ResponseBody()
-//    public List<List<String>> getCsv(Model model){
-//
-//        return parserService.records;
-//    }
-
+    //Sends contents of upload.csv as a response
     @GetMapping("/csvraw")
     public ResponseEntity<Resource> downloadFile( HttpServletRequest request) throws FileNotFoundException {
         String rootPath = System.getProperty("user.dir");
@@ -69,9 +70,12 @@ public class DefaultController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
+
+    //Displays csvdemo.jsp
     @GetMapping("/csvdemo")
     public String csvdemo(Model model) {return "csvdemo"; }
 
+    //Used in an http request from csvdemo.jsp, writes the file to disk
     @PostMapping("/upload")
     public String handleFileUpload(@RequestParam("files[]") MultipartFile file) {
         String rootPath = System.getProperty("user.dir");
@@ -81,13 +85,15 @@ public class DefaultController {
             os.write(file.getBytes());
             System.out.println(file.getOriginalFilename());
             parserService.parse(file.getOriginalFilename());
-            parserService.printCSV();
+            //parserService.printCSV();
 
         } catch (IOException e){
 
         }
         return "success";
     }
+
+    //Currently unused
     @GetMapping("/success")
     public String successGet(){
         return "success";
