@@ -37,7 +37,7 @@ public class DefaultController {
     public String welcome(Model model) throws IOException {
         String rootPath = System.getProperty("user.dir");
         rootPath += "/src/main/upload/";
-
+        parserService.records.clear();
         File file = new File(rootPath+"upload.csv");
         file.delete();
 
